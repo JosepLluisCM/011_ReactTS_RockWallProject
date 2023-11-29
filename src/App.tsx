@@ -1,9 +1,25 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+
+import HomePage from "./pages/Home";
+import LoginPage from "./pages/Login";
+import RootLayout from "./pages/RootLayout";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/login", element: <LoginPage /> },
+    ],
+  },
+]);
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">RockClimb Project</h1>
+      <RouterProvider router={router} />
     </>
   );
 }
