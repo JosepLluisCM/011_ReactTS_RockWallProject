@@ -1,56 +1,109 @@
 const RegisterPage = () => {
   return (
     <section className="my-auto">
-      <div className="w-96 bg-secondary rounded-lg shadow">
+      <div className="w-full bg-secondary rounded-lg shadow">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
           <h1 className="text-xl font-bold leading-tight tracking-tight">
             Create your account
           </h1>
           <form className="space-y-4 md:space-y-6" action="#">
+            <div className="flex">
+              <input
+                type="name"
+                name="name"
+                id="name"
+                className="inline bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0  p-2.5 mr-4"
+                placeholder="Name"
+                required
+              />
+              <input
+                type="name"
+                name="name"
+                id="name"
+                className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 inline  p-2.5"
+                placeholder="Surname"
+                required
+              />
+            </div>
+
             <div>
-              <label htmlFor="email" className="block mb-2 text-sm font-medium">
-                Your email
-              </label>
               <input
                 type="email"
                 name="email"
                 id="email"
                 className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
-                placeholder="your@email.com"
+                placeholder="Your email here"
                 required
               />
             </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="••••••••"
-                className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
-                required
-              />
+            <div className="flex ">
+              <div className="mr-4 grow">
+                <label
+                  htmlFor="date"
+                  className="block mb-2 text-sm font-medium"
+                >
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  name="date"
+                  id="date"
+                  className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
+                  placeholder="YYYY-MM-DD"
+                  required
+                />
+              </div>
+              <div className="grow">
+                <label
+                  htmlFor="gender"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Select your gender
+                </label>
+                <select
+                  id="gender"
+                  className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5 h-11"
+                >
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                  <option>Prefer not to say</option>
+                </select>
+              </div>
             </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="••••••••"
-                className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
-                required
-              />
+            <div className="flex">
+              <div className="mr-4">
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="••••••••"
+                  className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="••••••••"
+                  className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
+                  required
+                />
+              </div>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-start">
