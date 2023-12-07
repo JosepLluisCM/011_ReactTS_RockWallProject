@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+/* import React, { useState } from "react";
+
+interface Data {
+  name: string;
+}
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<"home" | "login">("home");
   const [password, setPassword] = useState("");
+
+  const [data, setData] = useState<>({ name: "home" });
+
+  setData(2)
+
+  setData({ test: 123 });
+
+  const tabs: Data[] = [{ name: "asdasd" }];
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -15,6 +27,7 @@ const Login = () => {
       <div className="max-w-md w-full rounded-lg shadow-xl p-6">
         <h2 className="text-center text-3xl font-extrabold text-white-500">
           Sign in to your account
+          {data.name}
         </h2>
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
@@ -66,3 +79,4 @@ const Login = () => {
 };
 
 export default Login;
+ */

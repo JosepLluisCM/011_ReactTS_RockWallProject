@@ -1,7 +1,47 @@
 import { NavLink } from "react-router-dom";
 import rock from "../assets/rock_5767687.png";
+import { loginActions } from "../store/index";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 const MainNav = () => {
+  const dispatch = useAppDispatch();
+  const isLogged = useAppSelector((state) => state.isLogged);
+
+  const toggleLogInHandler = () => {
+    dispatch(loginActions.logIn());
+  };
+
+  const toggleLogOutHandler = () => {
+    dispatch(loginActions.logOut());
+  };
+
+  let logInButton: JSX.Element;
+  if (isLogged) {
+    logInButton = (
+      <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-background hover:bg-accent mt-4 sm:mt-0">
+        <NavLink
+          className={({ isActive }) => (isActive ? "underline" : undefined)}
+          to="/login"
+          onClick={toggleLogOutHandler}
+        >
+          LogOut
+        </NavLink>
+      </button>
+    );
+  } else {
+    logInButton = (
+      <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-background hover:bg-accent mt-4 sm:mt-0">
+        <NavLink
+          className={({ isActive }) => (isActive ? "underline" : undefined)}
+          to="/login"
+          onClick={toggleLogInHandler}
+        >
+          Login
+        </NavLink>
+      </button>
+    );
+  }
+
   return (
     <nav className="w-full flex items-center justify-between flex-wrap p-6 bg-secondary">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -26,14 +66,7 @@ const MainNav = () => {
             Register
           </NavLink>
         </div>
-        <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-background hover:bg-accent mt-4 sm:mt-0">
-          <NavLink
-            className={({ isActive }) => (isActive ? "underline" : undefined)}
-            to="/login"
-          >
-            Login
-          </NavLink>
-        </button>
+        {logInButton}
       </div>
     </nav>
   );

@@ -19,7 +19,7 @@ const RegisterPage = () => {
               <input
                 type="name"
                 name="name"
-                id="name"
+                id="surname"
                 className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 inline  p-2.5"
                 placeholder="Surname"
                 required
@@ -82,7 +82,7 @@ const RegisterPage = () => {
                 <input
                   type="password"
                   name="password"
-                  id="password"
+                  id="confirmpassword"
                   placeholder="••••••••"
                   className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
                   required

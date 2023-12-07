@@ -1,4 +1,8 @@
 const LoginPage = () => {
+  const formHandler = () => {
+    console.log("sent");
+  };
+
   return (
     <section className="my-auto">
       <div className="w-96 bg-secondary rounded-lg shadow">
