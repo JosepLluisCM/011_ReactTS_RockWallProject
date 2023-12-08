@@ -1,6 +1,14 @@
+import { FormEvent } from "react";
+import { NavLink } from "react-router-dom";
+
 const LoginPage = () => {
-  const formHandler = () => {
-    console.log("sent");
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const logInData = new FormData(event.currentTarget);
+    const rememberChannel = logInData.getAll("remember");
+    const data = Object.fromEntries(logInData.entries());
+    data.remember = rememberChannel[0];
+    console.log(data);
   };
 
   return (
@@ -10,16 +18,19 @@ const LoginPage = () => {
           <h1 className="text-xl font-bold leading-tight tracking-tight">
             Sign in to your account
           </h1>
-          <form className="space-y-4 md:space-y-6" action="#">
+          <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block mb-2 text-sm font-medium">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium "
+              >
                 Your email
               </label>
               <input
                 type="email"
                 name="email"
                 id="email"
-                className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
+                className="bg-secondary-900 border border-secondary-500 text-text sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
                 placeholder="your@email.com"
                 required
               />
@@ -36,7 +47,7 @@ const LoginPage = () => {
                 name="password"
                 id="password"
                 placeholder="••••••••"
-                className="bg-secondary-900 border border-secondary-500 text-gray-900 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
+                className="bg-secondary-900 border border-secondary-500 text-text sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
                 required
               />
             </div>
@@ -45,10 +56,9 @@ const LoginPage = () => {
                 <div className="flex items-center h-5">
                   <input
                     id="remember"
-                    aria-describedby="remember"
                     type="checkbox"
-                    className="accent-accent w-4 h-4 bg-white border border-secondary-500 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block p-2.5"
-                    required
+                    name="remember"
+                    className="accent-accent w-4 h-4 opacity-50 border bg-white sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block p-2.5"
                   />
                 </div>
                 <div className="ml-3 text-sm">
@@ -74,10 +84,13 @@ const LoginPage = () => {
               Sign in
             </button>
             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-              Don’t have an account yet?{" "}
-              <a href="#" className="font-medium text-accent hover:underline">
+              Don't have an account yet?{" "}
+              <NavLink
+                to="/register"
+                className="font-medium text-accent hover:underline"
+              >
                 Sign up
-              </a>
+              </NavLink>
             </p>
           </form>
         </div>
