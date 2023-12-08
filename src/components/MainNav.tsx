@@ -1,18 +1,19 @@
 import { NavLink } from "react-router-dom";
 import rock from "../assets/rock_5767687.png";
-/* import { loginActions } from "../store/index"; */
-import { /* useAppDispatch, */ useAppSelector } from "../hooks/hooks";
+import { loginActions, LoginActions } from "../store/index";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 const MainNav = () => {
-  /* const dispatch = useAppDispatch(); */
+  const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.isLogged);
 
+  const actions: LoginActions = loginActions;
   const toggleLogInHandler = () => {
-    /* dispatch(loginActions.logIn()); */
+    dispatch(actions.logIn());
   };
 
   const toggleLogOutHandler = () => {
-    /* dispatch(loginActions.logOut()); */
+    dispatch(actions.logOut());
   };
 
   let logInButton: JSX.Element;
