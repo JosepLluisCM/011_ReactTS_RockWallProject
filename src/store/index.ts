@@ -27,7 +27,7 @@ const loginSlice = createSlice({
   },
 });
 
-const store = configureStore({
+export const store = configureStore({
   reducer: loginSlice.reducer,
 });
 
@@ -37,4 +37,3 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const loginActions = loginSlice.actions;
-export default store;
