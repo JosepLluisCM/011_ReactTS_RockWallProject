@@ -1,14 +1,27 @@
 import { NavLink } from "react-router-dom";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
+import { useAppDispatch } from "../hooks/hooks";
+import { loginActions, LoginActions } from "../store/index";
 
 const RegisterPage = () => {
+  const [diffPass, setdiffPass] = useState(false);
+  const dispatch = useAppDispatch();
+  const actions: LoginActions = loginActions;
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const logInData = new FormData(event.currentTarget);
-    /* const rememberChannel = logInData.getAll("remember"); */
     const data = Object.fromEntries(logInData.entries());
-    /* data.remember = rememberChannel[0]; */
+
+    if (data.password != data.confirmPassword) {
+      setdiffPass(true);
+      return;
+    }
+    setdiffPass(false);
     console.log(data);
+    dispatch(actions.addUser(data));
+    const formElement = event.target as HTMLFormElement;
+    formElement.reset();
   };
 
   return (
@@ -58,8 +71,8 @@ const RegisterPage = () => {
                 </label>
                 <input
                   type="date"
-                  name="date"
-                  id="date"
+                  name="birth"
+                  id="birth"
                   className="bg-secondary-900 border border-secondary-500 focus:text-text text-gray-400 sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
                   placeholder="YYYY-MM-DD"
                   required
@@ -119,6 +132,9 @@ const RegisterPage = () => {
                   required
                 />
               </div>
+            </div>
+            <div className="block mb-2 text-sm font-medium text-red-600">
+              {diffPass && <p>Passwords must be equal</p>}
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-start">

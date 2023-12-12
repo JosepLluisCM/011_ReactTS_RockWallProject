@@ -9,6 +9,8 @@ const LoginPage = () => {
     const data = Object.fromEntries(logInData.entries());
     data.remember = rememberChannel[0];
     console.log(data);
+    const formElement = event.target as HTMLFormElement;
+    formElement.reset();
   };
 
   return (

@@ -7,6 +7,7 @@ interface UserData {
   birth: Date;
   gender: "Male" | "Female" | "Other" | "Prefer not to say";
   password: string;
+  confirmPassword?: string;
 }
 
 const userList: UserData[] = [];
@@ -23,7 +24,11 @@ const loginSlice = createSlice({
     logOut(state) {
       state.isLogged = false;
     },
-    addUser() {},
+    addUser(state, action) {
+      const user: UserData = action.payload;
+      delete user.confirmPassword;
+      state.userList.push(user);
+    },
   },
 });
 
