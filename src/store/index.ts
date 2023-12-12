@@ -9,17 +9,37 @@ interface UserData {
   password: string;
   confirmPassword?: string;
 }
+interface LogInData {
+  email: string;
+  password: string;
+  remember: undefined | "on";
+}
 
 const userList: UserData[] = [];
 
 const isLogged: boolean = false;
+const failedAttempt: boolean = false;
 
 const loginSlice = createSlice({
   name: "login",
-  initialState: { userList, isLogged },
+  initialState: { userList, isLogged, failedAttempt },
   reducers: {
-    logIn(state) {
-      state.isLogged = true;
+    logIn(state, action) {
+      state.failedAttempt = false;
+      const userlogIn: LogInData = action.payload;
+      const email = state.userList.find(
+        (user) => user.email === userlogIn.email
+      );
+      if (email) {
+        if (email.password === userlogIn.password) {
+          state.isLogged = true;
+          return;
+        } else {
+          state.failedAttempt = true;
+        }
+      } else {
+        state.failedAttempt = true;
+      }
     },
     logOut(state) {
       state.isLogged = false;

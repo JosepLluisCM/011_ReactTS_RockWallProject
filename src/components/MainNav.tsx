@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
 import rock from "../assets/rock_5767687.png";
-import { loginActions, LoginActions } from "../store/index";
-import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+/* import { loginActions, LoginActions } from "../store/index"; */
+import { /* useAppDispatch, */ useAppSelector } from "../hooks/hooks";
 
 const MainNav = () => {
-  const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.isLogged);
 
+  /* const dispatch = useAppDispatch();
   const actions: LoginActions = loginActions;
   const toggleLogInHandler = () => {
     dispatch(actions.logIn());
@@ -14,7 +14,7 @@ const MainNav = () => {
 
   const toggleLogOutHandler = () => {
     dispatch(actions.logOut());
-  };
+  }; */
 
   let logInButton: JSX.Element;
   if (isLogged) {
@@ -23,7 +23,7 @@ const MainNav = () => {
         <NavLink
           className={({ isActive }) => (isActive ? "underline" : undefined)}
           to="/login"
-          onClick={toggleLogOutHandler}
+          /* onClick={toggleLogOutHandler} */
         >
           LogOut
         </NavLink>
@@ -35,7 +35,7 @@ const MainNav = () => {
         <NavLink
           className={({ isActive }) => (isActive ? "underline" : undefined)}
           to="/login"
-          onClick={toggleLogInHandler}
+          /* onClick={toggleLogInHandler} */
         >
           Login
         </NavLink>
@@ -59,14 +59,14 @@ const MainNav = () => {
             Home
           </NavLink>
         </div>
-        <div className="text-sm sm:flex-grow">
+        {/* <div className="text-sm sm:flex-grow">
           <NavLink
             to="/register"
             className={({ isActive }) => (isActive ? "underline" : undefined)}
           >
             Register
           </NavLink>
-        </div>
+        </div> */}
         {logInButton}
       </div>
     </nav>
