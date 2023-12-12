@@ -1,20 +1,21 @@
 import { NavLink } from "react-router-dom";
 import rock from "../assets/rock_5767687.png";
-/* import { loginActions, LoginActions } from "../store/index"; */
-import { /* useAppDispatch, */ useAppSelector } from "../hooks/hooks";
+import { loginActions, LoginActions } from "../store/index";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 const MainNav = () => {
   const isLogged = useAppSelector((state) => state.isLogged);
 
-  /* const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const actions: LoginActions = loginActions;
-  const toggleLogInHandler = () => {
+  /*  const toggleLogInHandler = () => {
     dispatch(actions.logIn());
-  };
+  }; */
 
   const toggleLogOutHandler = () => {
     dispatch(actions.logOut());
-  }; */
+    /* console.log(isLogged); */
+  };
 
   let logInButton: JSX.Element;
   if (isLogged) {
@@ -23,7 +24,7 @@ const MainNav = () => {
         <NavLink
           className={({ isActive }) => (isActive ? "underline" : undefined)}
           to="/login"
-          /* onClick={toggleLogOutHandler} */
+          onClick={toggleLogOutHandler}
         >
           LogOut
         </NavLink>

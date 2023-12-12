@@ -1,12 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { loginActions, LoginActions } from "../store/index";
 
 const RegisterPage = () => {
   const [diffPass, setdiffPass] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const actions: LoginActions = loginActions;
+  const alreadyUser = useAppSelector((state) => state.alreadyUser);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -22,6 +24,9 @@ const RegisterPage = () => {
     dispatch(actions.addUser(data));
     const formElement = event.target as HTMLFormElement;
     formElement.reset();
+    if (!alreadyUser) {
+      navigate("/login");
+    }
   };
 
   return (
@@ -134,7 +139,16 @@ const RegisterPage = () => {
               </div>
             </div>
             <div className="block mb-2 text-sm font-medium text-red-600">
-              {diffPass && <p>Passwords must be equal</p>}
+              {diffPass && (
+                <p className="text-gray-500 dark:text-gray-300">
+                  Passwords must be equal
+                </p>
+              )}
+              {alreadyUser && (
+                <p className="text-gray-500 dark:text-gray-300">
+                  Email already in use
+                </p>
+              )}
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-start">

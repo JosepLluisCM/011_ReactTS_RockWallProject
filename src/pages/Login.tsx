@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 const LoginPage = () => {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.isLogged);
-  const failedAttempt = useAppSelector((state) => state.isLogged);
+  const failedAttempt = useAppSelector((state) => state.failedAttempt);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -14,12 +14,16 @@ const LoginPage = () => {
     const rememberChannel = logInData.getAll("remember");
     const data = Object.fromEntries(logInData.entries());
     data.remember = rememberChannel[0];
-    /* console.log(data); */
+
     const formElement = event.target as HTMLFormElement;
     formElement.reset();
 
     const actions: LoginActions = loginActions;
     dispatch(actions.logIn(data));
+
+    console.log(data);
+    console.log(isLogged);
+    console.log(failedAttempt);
   };
 
   return (

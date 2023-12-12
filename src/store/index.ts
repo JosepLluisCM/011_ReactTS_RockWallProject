@@ -19,17 +19,20 @@ const userList: UserData[] = [];
 
 const isLogged: boolean = false;
 const failedAttempt: boolean = false;
+const alreadyUser: boolean = false;
 
 const loginSlice = createSlice({
   name: "login",
-  initialState: { userList, isLogged, failedAttempt },
+  initialState: { userList, isLogged, failedAttempt, alreadyUser },
   reducers: {
     logIn(state, action) {
       state.failedAttempt = false;
       const userlogIn: LogInData = action.payload;
+      /* console.log(userlogIn); */
       const email = state.userList.find(
         (user) => user.email === userlogIn.email
       );
+      console.log(email);
       if (email) {
         if (email.password === userlogIn.password) {
           state.isLogged = true;
@@ -45,9 +48,15 @@ const loginSlice = createSlice({
       state.isLogged = false;
     },
     addUser(state, action) {
-      const user: UserData = action.payload;
-      delete user.confirmPassword;
-      state.userList.push(user);
+      state.alreadyUser = false;
+      const addUser: UserData = action.payload;
+      delete addUser.confirmPassword;
+      const email = state.userList.find((user) => user.email === addUser.email);
+      if (!email) {
+        state.userList.push(addUser);
+      } else {
+        state.alreadyUser = true;
+      }
     },
   },
 });
