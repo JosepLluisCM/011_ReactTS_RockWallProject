@@ -4,28 +4,32 @@ import { loginActions, LoginActions } from "../store/index";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 const LoginPage = () => {
+  /* We load all we need from the login slice */
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.isLogged);
   const failedAttempt = useAppSelector((state) => state.failedAttempt);
 
+  /* This function executes when the login form is submitted */
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    /* Prevent the default use of the browser forms */
     event.preventDefault();
+
+    /* We create a form object, collect all entries and store it in an object named DATA */
     const logInData = new FormData(event.currentTarget);
-    const rememberChannel = logInData.getAll("remember");
     const data = Object.fromEntries(logInData.entries());
+    const rememberChannel = logInData.getAll("remember");
     data.remember = rememberChannel[0];
 
+    /* event target needs type HTMLFormElemnt, and we reset the fields after click */
     const formElement = event.target as HTMLFormElement;
     formElement.reset();
 
+    /* We execute the LOGIN action from toe login Slice */
     const actions: LoginActions = loginActions;
     dispatch(actions.logIn(data));
-
-    console.log(data);
-    console.log(isLogged);
-    console.log(failedAttempt);
   };
 
+  /* We conditionally render the login form or log in text  according to the isLogged state, we also use failedAttempt State ot conditionally show text is the login failed*/
   return (
     <section className="my-auto">
       {isLogged && (

@@ -4,31 +4,45 @@ import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { loginActions, LoginActions } from "../store/index";
 
 const RegisterPage = () => {
+  /* We use local state with useState for checking if the password and confirm password are equal */
   const [diffPass, setdiffPass] = useState(false);
+
+  /* We load all we need from the login slice */
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const actions: LoginActions = loginActions;
   const alreadyUser = useAppSelector((state) => state.alreadyUser);
 
+  /* This function executes when the register form is submitted */
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    /* Prevent the default behaviour of the browser forms */
     event.preventDefault();
-    const logInData = new FormData(event.currentTarget);
-    const data = Object.fromEntries(logInData.entries());
 
+    /* We create a form object, collect all entries and store it in an object named DATA */
+    const RegisterData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(RegisterData.entries());
+
+    /* We check if password and cofirmPassword are equal, if not, show error */
     if (data.password != data.confirmPassword) {
       setdiffPass(true);
       return;
     }
     setdiffPass(false);
-    console.log(data);
-    dispatch(actions.addUser(data));
+
+    /* event target needs type HTMLFormElemnt, and we reset the fields after click */
     const formElement = event.target as HTMLFormElement;
     formElement.reset();
+
+    /* We execute the LOGIN action from the login Slice */
+    const actions: LoginActions = loginActions;
+    dispatch(actions.addUser(data));
+
+    /* If the check for already user passes, we succesfully register and redirect to the login page */
     if (!alreadyUser) {
       navigate("/login");
     }
   };
 
+  /* We conditionally render text if the userCheck fails*/
   return (
     <section className="my-auto">
       <div className="w-full bg-secondary rounded-lg shadow">
