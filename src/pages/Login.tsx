@@ -11,7 +11,7 @@ const LoginPage = () => {
 
   /* This function executes when the login form is submitted */
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    /* Prevent the default use of the browser forms */
+    /* Prevent the default behaviour of the browser forms */
     event.preventDefault();
 
     /* We create a form object, collect all entries and store it in an object named DATA */
@@ -24,7 +24,7 @@ const LoginPage = () => {
     const formElement = event.target as HTMLFormElement;
     formElement.reset();
 
-    /* We execute the LOGIN action from toe login Slice */
+    /* We execute the LOGIN action from the login Slice */
     const actions: LoginActions = loginActions;
     dispatch(actions.logIn(data));
   };

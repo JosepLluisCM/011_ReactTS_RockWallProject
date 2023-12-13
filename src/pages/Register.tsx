@@ -129,7 +129,7 @@ const RegisterPage = () => {
                 <input
                   type="password"
                   name="password"
-                  id="confirmpassword"
+                  id="password"
                   placeholder="••••••••"
                   className="bg-secondary-900 border border-secondary-500 text-text sm:text-sm rounded-lg focus:border-accent focus:outline-none focus:ring-0 block w-full p-2.5"
                   required
@@ -143,7 +143,7 @@ const RegisterPage = () => {
                   Confirm Password
                 </label>
                 <input
-                  type="confirmPassword"
+                  type="password"
                   name="confirmPassword"
                   id="confirmPassword"
                   placeholder="••••••••"

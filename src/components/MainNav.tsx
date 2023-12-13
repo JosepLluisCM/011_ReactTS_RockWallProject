@@ -4,46 +4,19 @@ import { loginActions, LoginActions } from "../store/index";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 const MainNav = () => {
+  /* We load all we need from the login slice */
   const isLogged = useAppSelector((state) => state.isLogged);
-
   const dispatch = useAppDispatch();
-  const actions: LoginActions = loginActions;
-  /*  const toggleLogInHandler = () => {
-    dispatch(actions.logIn());
-  }; */
 
+  /* console.log(isLogged); */
+
+  /* We execute the logOUT action on click */
+  const actions: LoginActions = loginActions;
   const toggleLogOutHandler = () => {
     dispatch(actions.logOut());
-    /* console.log(isLogged); */
   };
 
-  let logInButton: JSX.Element;
-  if (isLogged) {
-    logInButton = (
-      <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-background hover:bg-accent mt-4 sm:mt-0">
-        <NavLink
-          className={({ isActive }) => (isActive ? "underline" : undefined)}
-          to="/login"
-          onClick={toggleLogOutHandler}
-        >
-          LogOut
-        </NavLink>
-      </button>
-    );
-  } else {
-    logInButton = (
-      <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-background hover:bg-accent mt-4 sm:mt-0">
-        <NavLink
-          className={({ isActive }) => (isActive ? "underline" : undefined)}
-          to="/login"
-          /* onClick={toggleLogInHandler} */
-        >
-          Login
-        </NavLink>
-      </button>
-    );
-  }
-
+  /* We conditionally modify the LogIn button according to the state of isLogged */
   return (
     <nav className="w-full flex items-center justify-between flex-wrap p-6 bg-secondary">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -60,43 +33,19 @@ const MainNav = () => {
             Home
           </NavLink>
         </div>
-        {/* <div className="text-sm sm:flex-grow">
+
+        <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-background hover:bg-accent mt-4 sm:mt-0">
           <NavLink
-            to="/register"
             className={({ isActive }) => (isActive ? "underline" : undefined)}
+            to="/login"
+            onClick={isLogged ? toggleLogOutHandler : undefined}
           >
-            Register
+            {isLogged ? "Log Out" : "Log In"}
           </NavLink>
-        </div> */}
-        {logInButton}
+        </button>
       </div>
     </nav>
   );
 };
 
 export default MainNav;
-
-/* <nav>
-        <ul className="flex gap-4 text-orange-300">
-          <li className="bg-secondary px-4 py-2 rounded-lg">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "underline text-orange-500" : undefined
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li className="bg-secondary px-4 py-2 rounded-lg self-end">
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "underline text-orange-500" : undefined
-              }
-              to="/login"
-            >
-              Login
-            </NavLink>
-          </li>
-        </ul>
-      </nav> */
