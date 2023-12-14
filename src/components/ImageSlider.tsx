@@ -1,111 +1,66 @@
-import { useState /* useEffect */ } from "react";
+import { useEffect, useState } from "react";
+/* We import the image array from a file in the utils folder */
 import images from "../utils/imageList";
+import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
 const ImageSlider = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  /* Local state that manages the current image shown in screen */
+  const [currSlide, setCurrSlide] = useState(0);
 
-  /* useEffect(() => {
-    const interval = setInterval(() => {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-        setIsTransitioning(false);
-      }, 1000); // Transition duration + delay before changing the image
-    }, 6000); // Change image every 3 seconds (adjust as needed)
+  /* Set the interval of the autoplay effect */
+  useEffect(() => {
+    const slideInterval = setInterval(next, 6000);
+    return () => clearInterval(slideInterval);
+  }, []);
 
-    return () => clearInterval(interval);
-  }, []); */
-
-  const goToPrevSlide = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      const index = (currentImageIndex - 1 + images.length) % images.length;
-      setCurrentImageIndex(index);
-      setIsTransitioning(false);
-    }, 1000); // Transition duration + delay before changing the image
+  /* Functions to change the index of the images array */
+  const prev = () => {
+    setCurrSlide((currSlide) =>
+      currSlide == 0 ? images.length - 1 : currSlide - 1
+    );
   };
-
-  const goToNextSlide = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      const index = (currentImageIndex + 1) % images.length;
-      setCurrentImageIndex(index);
-      setIsTransitioning(false);
-    }, 1000); // Transition duration + delay before changing the image
+  const next = () => {
+    setCurrSlide((currSlide) =>
+      currSlide == images.length - 1 ? 0 : currSlide + 1
+    );
+  };
+  const goToSlide = (i: number) => {
+    setCurrSlide(i);
   };
 
   return (
-    <div className="flex justify-center sm:px-12 p-8 h-screen">
-      <button
-        onClick={goToPrevSlide}
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-text text-background p-2 rounded-full"
+    <div className="max-w-xl  rounded-xl  overflow-hidden relative">
+      <div
+        className="flex transition-transform ease-in-out duration-1000"
+        style={{ transform: `translateX(-${currSlide * 100}%)` }}
       >
-        &lt;
-      </button>
-      <img
-        src={images[currentImageIndex]}
-        alt="Slide"
-        className={`object-scale-down max-h-full drop-shadow-md rounded-md m-auto transition-opacity duration-500 ${
-          isTransitioning ? "opacity-0" : "opacity-100"
-        }`}
-        style={{ transitionProperty: "opacity" }}
-      />
-      <button
-        onClick={goToNextSlide}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-text text-background p-2 rounded-full"
-      >
-        &gt;
-      </button>
+        {images.map((img, index) => (
+          <img key={index} src={img} alt={`Image ${index + 1}`} />
+        ))}
+      </div>
+      <div className="absolute inset-0 flex items-center justify-between p-4">
+        <button onClick={prev} className="shadow-lg rounded-full opacity-75">
+          <FaChevronCircleLeft size={30} />
+        </button>
+        <button onClick={next} className="shadow-lg rounded-full opacity-75">
+          <FaChevronCircleRight size={30} />
+        </button>
+      </div>
+
+      <div className="absolute bottom-4 right-0 left-0">
+        <div className="flex items-center justify-center gap-2">
+          {images.map((_, i) => (
+            <button
+              onClick={() => goToSlide(i)}
+              className={`transition-all w-3 h-3 bg-text rounded-full ${
+                currSlide == i ? "p-2" : "bg-opacity-50"
+              }`}
+            ></button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default ImageSlider;
-
-/* ;
-import { useState, useEffect } from "react";
-
-const ImageSlider = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // Change image every 3 seconds (adjust as needed)
-
-    return () => clearInterval(interval);
-  }, []);
-  const goToPrevSlide = () => {
-    const index = (currentImageIndex - 1 + images.length) % images.length;
-    setCurrentImageIndex(index);
-  };
-
-  const goToNextSlide = () => {
-    const index = (currentImageIndex + 1) % images.length;
-    setCurrentImageIndex(index);
-  };
-  return (
-    <div className="relative">
-      <button
-        onClick={goToPrevSlide}
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full"
-      >
-        &lt;
-      </button>
-      <img
-        src={images[currentImageIndex]}
-        alt="Slide"
-        className="mx-auto max-w-full"
-      />
-      <button
-        onClick={goToNextSlide}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full"
-      >
-        &gt;
-      </button>
-    </div>
-  );
-};
-
-export default ImageSlider; */
