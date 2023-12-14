@@ -1,11 +1,12 @@
+import MyCalendar from "../components/CalendarGeneral";
 import ImageSlider from "../components/ImageSlider";
 
 const HomePage = () => {
   return (
-    <>
-      <h1>HOMEPAGE!</h1>
+    <div className="m-4">
       <ImageSlider />
-    </>
+      <MyCalendar />
+    </div>
   );
 };
 
